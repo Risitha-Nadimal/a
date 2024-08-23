@@ -1,0 +1,156 @@
+//install DHCP
+
+sudo apt update
+sudo apt upgrade
+
+sudo apt install isc-dhcp-server -y
+
+//open dhcp cofig file
+sudo nano /var/lib/cloud/seed/00-installer-config.yaml
+Sudo nano /etc/00-installer-config.yaml
+
+//on nano type below
+addresses:[10.10.10.50/24]
+routes:
+-to: default
+via:10.10.10.1
+nameservers:
+address:[8.8.8.8, 8.8.8.4]
+
+//save and exit
+ctl+o
+ctl+x
+
+//reboot server
+sudo reboot
+
+//take backup
+
+sudo cp /etc/dhcp/dhcpd.confi /etc/dhcp/dhcpd.config.bak
+
+//open file
+sudo nano /etc/dhcp/dhcpd.conf
+
+//apply changes
+
+ctl+0
+ctl+x
+
+//restart dhcp
+sudo systemctl restart isc-dhcp-server
+
+//check dhcp status
+sudo systemctl status isc-dhcp-status
+------------------------------------------
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form site</title>
+</head>
+<body>
+    <form method="post" action="myform.php">
+        Username: <input type="text" name="uname"><br><br>
+        Password: <input type="password" name="upassword"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+
+<?php
+$host = "localhost";
+$dbusername = "root";
+$dbpassword = "Testwebpw1$";
+$dbname = "myDB";
+
+//Create Connection
+$conn = new mysqli($host, $dbusername, $dbpassword, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$username = $_POST['uname'];
+$password = $_POST['upassword'];
+
+// Insert value in database table
+$sql = "INSERT INTO user (name, password) VALUES ('$username', '$password')";
+
+if ($conn->query($sql) === TRUE) {
+    echo "New record is inserted successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+$conn->close();
+?>
+
+-------------------------------------------------
+sudo useradd -m -c "Steve Smith" smith
+
+-d - Define custom home directory (Default /home/<username>)
+-g - Assign a group to this user (By default primary will be created same as username)
+-m - Create home directory if doesn’t exist
+-s - Specify the custom shell (Default shell is /bin/sh)
+-u - Assign unique identification number if needed
+
+---------------------------------------------------
+basic commands
+
+date "+%D %H:%M:%S"
+timedatectl - timezone
+sudo timedatectl set-timezone Asia/Colombo
+tty - connected terminal
+man shutshow - help
+pwd - working directory
+who - currently login
+cat (-b,-n,-s) file.txt  -exclude blank/include blank/display content
+cp source file destinationfile
+mv source file destinationfile
+wc -l,-w,-c file.txt  -count line,word,character 
+more file.txt -h (help)
+diff (-w,-a,-b) f1.txt f2.txt (diffftent between 2 file)
+cmp sam.txt sam2.txt (compare file)
+touch file.txt
+
+----------------------------------------------
+
+process
+
+ps - process in current shell
+ps -A  - all active processes
+ps -au  - ll process and process not associated with terminal
+ps -ef  - full format
+ps -x  - all the process owned by the current user
+ps -fu username/grpname/root  - display users, process by real user id or name.
+ps -e --forest  - process tree
+ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head  - top running process
+kill -o pid  - stop process
+
+-------------------------------------------------
+sudo apt install apache2
+sudo apt install mysql-server
+sudo systemctl start apache2
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('newpassword');
+
+sudo nano /etc/dhcp/dhcpd.conf
+sudo netplan apply
+
+
+check permission
+ls -l filename.txt
+ls -ld folder
+chmod ugo file.txt
+sudo adduser/addgroup
+sudo passwd user
+sudo usermod -aG group user (add group for user)
+sudo gpasswd -d user group (remove user from group)
+sudo usermod -g  group user  (change group)
+sudo group del group
+sudo deluser user
+sudo deluser --remove-home user
+
+
+
+
